@@ -15,6 +15,12 @@ const containerVariants = {
       stiffness: 120,
     },
   },
+  exit: {
+    x: "-100vw",
+    transition: {
+      ease: "easeInOut",
+    },
+  },
 };
 
 const Toppings = ({ addTopping, pizza }) => {
@@ -33,6 +39,7 @@ const Toppings = ({ addTopping, pizza }) => {
       initial="hidden"
       animate="visible"
       className="toppings container"
+      exit="exit"
     >
       <h3>Step 2: Choose Toppings</h3>
       <ul>
@@ -51,19 +58,21 @@ const Toppings = ({ addTopping, pizza }) => {
         })}
       </ul>
 
-      {(pizza.toppings.length > 0)&& <Link to="/order">
-        <motion.button
-        initial={{ x: "150%" }}
-        animate={{ x: "30%" }}
-        transition={{ type: "spring", stiffness: 120 }}
-          whileHover={{
-            scale: 1.1,
-            boxShadow: "0px 0px 8px rgb(255 , 255 ,255)",
-          }}
-        >
-          Order
-        </motion.button>
-      </Link>}
+      {pizza.toppings.length > 0 && (
+        <Link to="/order">
+          <motion.button
+            initial={{ x: "150%" }}
+            animate={{ x: "30%" }}
+            transition={{ type: "spring", stiffness: 120 }}
+            whileHover={{
+              scale: 1.1,
+              boxShadow: "0px 0px 8px rgb(255 , 255 ,255)",
+            }}
+          >
+            Order
+          </motion.button>
+        </Link>
+      )}
     </motion.div>
   );
 };

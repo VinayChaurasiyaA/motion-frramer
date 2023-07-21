@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Base from "./components/Base";
 import Toppings from "./components/Toppings";
 import Order from "./components/Order";
+import Modal from "./components/Modal";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
 function AppRoutes() {
   const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
   const [pizza, setPizza] = useState({ base: "", toppings: [] });
 
   const addBase = (base) => {
@@ -37,7 +39,8 @@ function AppRoutes() {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait" onExitComplete={() => setShowModal(false)}>
+      <Modal setShowModal={setShowModal} showModal={showModal} />
       <Routes location={location} key={location.key}>
         <Route path="/" element={<Home />} />
         <Route
@@ -48,7 +51,10 @@ function AppRoutes() {
           path="/toppings"
           element={<Toppings addTopping={addToppings} pizza={pizza} />}
         />
-        <Route path="/order" element={<Order pizza={pizza} />} />
+        <Route
+          path="/order"
+          element={<Order pizza={pizza} setShowModal={setShowModal} />}
+        />
       </Routes>
     </AnimatePresence>
   );
